@@ -1,0 +1,9 @@
+<h1>Welcome to {{hotelName}}</h1>
+
+<div [hidden]="hideRooms">
+Number Of rooms available
+<div [innerText]="numberOfRooms"></div>
+</div>
+
+
+<button (click) = "toggle()">Toggle</button>
