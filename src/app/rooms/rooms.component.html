@@ -6,26 +6,12 @@ Number Of rooms available
      [innerText]="numberOfRooms"></div>
 </div>
 
+<div *ngIf="selectedRoom!">
+    {{selectedRoom! | json}}
+</div>
+
 <div *ngIf = "rooms.availableRooms > 0">
-    Rooms list
-    <table class="table">
-        <tr>
-            <th>Room Number</th>
-            <th>Room Type</th>
-            <th>Room Price</th>
-            <th>Room Amenities</th>
-            <th>Checkin Time</th>
-            <th>Rating</th>
-        </tr>
-        <tr [ngClass]="e?'even':'odd'" *ngFor = "let room of roomList; let e=even; let o=odd">
-            <td>{{room.roomNumber}}</td>
-            <td>{{room.roomType}}</td>
-            <td>{{room.price | currency : 'INR'}}</td>
-            <td>{{room.amenities | titlecase}}</td>
-            <td>{{room.checkinTime | date}}</td>
-            <td>{{room.rating | number : '1.0-0'}}</td>
-        </tr>
-    </table>
+<hinv-rooms-list [rooms] = "roomList" (selectedRoom)="selectRoom($event)"></hinv-rooms-list>
 </div>
 
 
