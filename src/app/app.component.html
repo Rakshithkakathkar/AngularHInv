@@ -1,4 +1,25 @@
+
+
 <!-- <hinv-rooms></hinv-rooms> -->
+
+<!-- content projection -->
+<!-- This allows us to add elements inside the selector of a component
+the components template has a ng-content in it -->
+
+<!-- This doesn't work because hinv-rooms doesn't have ng-content in it
+<hinv-rooms>
+    <h1>this is from ng-content</h1>
+</hinv-rooms> -->
+
+
+<!-- in hinv-container we defined the order in which components are to be rendered
+we placed the employee component first and then the rooms component
+but in the below code we added rooms component first and then the employee component
+but still it maintains the order than we have in the container component -->
+<hinv-container>
+    <hinv-rooms></hinv-rooms>
+    <hinv-employee></hinv-employee>
+</hinv-container>
 
 
 
@@ -20,6 +41,6 @@
 
 <!-- dynamic rendering of components -->
 <!-- ng-template never renders anything on its own, it helps to render some other template/component -->
-<div>
+<!-- <div>
     <ng-template #user></ng-template>
-</div>
+</div> -->
