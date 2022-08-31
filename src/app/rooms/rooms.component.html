@@ -1,4 +1,7 @@
-<h1>Welcome to {{hotelName}}</h1>
+<!-- we want to use a title here from the header component -->
+<!-- we want to access the title property here, but we do not want to send it is an input -->
+<hinv-header></hinv-header>
+<!-- <h1>Welcome to {{hotelName}}</h1> -->
 
 <div [hidden]="hideRooms">
 Number Of rooms available
@@ -10,8 +13,12 @@ Number Of rooms available
     {{selectedRoom! | json}}
 </div>
 
+<div>
+    <button (click)="addRoom()">Add room</button>
+</div>
+
 <div *ngIf = "rooms.availableRooms > 0">
-<hinv-rooms-list [rooms] = "roomList" (selectedRoom)="selectRoom($event)"></hinv-rooms-list>
+<hinv-rooms-list [rooms] = "roomList" [title]="title" (selectedRoom)="selectRoom($event)"></hinv-rooms-list>
 </div>
 
 
