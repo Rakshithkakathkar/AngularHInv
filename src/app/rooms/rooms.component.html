@@ -17,7 +17,7 @@ Number Of rooms available
     <button (click)="addRoom()">Add room</button>
 </div>
 
-<div *ngIf = "rooms.availableRooms > 0">
+<div *ngIf = "hideRooms">
 <hinv-rooms-list [rooms] = "roomList" [title]="title" (selectedRoom)="selectRoom($event)"></hinv-rooms-list>
 </div>
 

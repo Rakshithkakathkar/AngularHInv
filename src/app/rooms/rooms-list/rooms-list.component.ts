@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { RoomList } from '../rooms';
 
 
@@ -6,9 +6,9 @@ import { RoomList } from '../rooms';
   selector: 'hinv-rooms-list',
   templateUrl: './rooms-list.component.html',
   styleUrls: ['./rooms-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoomsListComponent implements OnInit, OnChanges {
+export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() rooms: RoomList[] = [];
   @Input() title: string = '';
   @Output() selectedRoom = new EventEmitter<RoomList>();
@@ -27,7 +27,14 @@ export class RoomsListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
-  selectRoom(room : RoomList){
+  // whenever a component is removed from DOM, the ngOnDestroy method is called
+  // clean up can be done in this method
+  // subscriptions can be removed here
+  ngOnDestroy(): void {
+    console.log('On destroy is called');
+  }
+
+  selectRoom(room: RoomList) {
     this.selectedRoom.emit(room);
   }
 }
