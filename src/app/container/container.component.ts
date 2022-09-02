@@ -18,7 +18,7 @@ export class ContainerComponent implements OnInit, AfterContentInit {
   // we can access the properties of those components from here
 
   ngAfterContentInit(): void {
-    // we are modifying the proerties of employeeComponent
-    this.employee.empName = 'Raj';
+    // we are modifying the properties of employeeComponent
+    this.employee.empName = 'Rakshith';
   }
 }

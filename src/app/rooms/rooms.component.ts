@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { Room, RoomList } from './rooms';
+import { RoomsService } from './services/rooms.service';
 
 @Component({
   selector: 'hinv-rooms',
@@ -21,7 +22,7 @@ export class RoomsComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   numberOfRooms = 10;
 
-  hideRooms = false;
+  hideRooms = true;
 
   rooms: Room = {
     totalRooms: 20,
@@ -45,7 +46,10 @@ export class RoomsComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild(HeaderComponent, { static: false })
   headerComponent!: HeaderComponent;
 
-  constructor() {}
+  // first it checks if there is a providers array in the @Component decorater, if not then it checks its module.ts and starts using the single instance that is created
+  // if not then it checks its parent and so on until it reaches app.module.ts
+  // if we miss providedIn property in service, then we get an error
+  constructor(private roomsService: RoomsService) {}
 
   // this is a lifecycle hook that is rarely used
   // if we check the console, whenever any event happens on the app this function is trigerred
@@ -56,44 +60,13 @@ export class RoomsComponent implements OnInit, AfterViewInit, AfterViewChecked {
   // }
 
   ngOnInit(): void {
+
+    // all the code that can be re-used must be from a service
+    this.roomList = this.roomsService.getRooms();
+
     // here it is still undefined because headerComponent is not yet ready here
     // if static is true, then we can see the metadata of headerComponent here also
     console.log(this.headerComponent);
-    this.roomList = [
-      {
-        roomNumber: 1,
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wi-fi, Tv, Bathroom, Kitchen',
-        price: 500,
-        photos:
-          'https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-        checkinTime: new Date('11-Nov-2022'),
-        checkoutTime: new Date('12-Nov-2022'),
-        rating: 4.5,
-      },
-      {
-        roomNumber: 2,
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wi-fi, Tv, Bathroom, Kitchen',
-        price: 1500,
-        photos:
-          'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-        checkinTime: new Date('10-Aug-2022'),
-        checkoutTime: new Date('12-Aug-2022'),
-        rating: 3.4,
-      },
-      {
-        roomNumber: 3,
-        roomType: 'Private suite',
-        amenities: 'Air Conditioner, Free Wi-fi, Tv, Bathroom, Kitchen',
-        price: 15000,
-        photos:
-          'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-        checkinTime: new Date('10-Aug-2022'),
-        checkoutTime: new Date('12-Aug-2022'),
-        rating: 2.6,
-      },
-    ];
   }
 
   ngAfterViewInit(): void {
