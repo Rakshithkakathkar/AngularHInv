@@ -46,6 +46,8 @@ export class RoomsService {
     },
   ];
   constructor() {
+    // if this is injected in root, this is a single instance and then this line is printed only once in the console
+    // if it is injected into each component individually, multiple instances of this services are created and this line is printed multiple times. (check employee.component)
     console.log('room service is initialized');
   }
 

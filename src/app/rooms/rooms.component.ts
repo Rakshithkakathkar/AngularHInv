@@ -5,6 +5,7 @@ import {
   DoCheck,
   OnDestroy,
   OnInit,
+  SkipSelf,
   ViewChild,
 } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
@@ -49,7 +50,9 @@ export class RoomsComponent implements OnInit, AfterViewInit, AfterViewChecked {
   // first it checks if there is a providers array in the @Component decorater, if not then it checks its module.ts and starts using the single instance that is created
   // if not then it checks its parent and so on until it reaches app.module.ts
   // if we miss providedIn property in service, then we get an error
-  constructor(private roomsService: RoomsService) {}
+
+  // @SkipSelf() will skip the check to see if service is injected locally in the component and start checking the parent modules
+  constructor(@SkipSelf() private roomsService: RoomsService) {}
 
   // this is a lifecycle hook that is rarely used
   // if we check the console, whenever any event happens on the app this function is trigerred
