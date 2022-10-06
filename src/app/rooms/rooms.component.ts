@@ -65,7 +65,10 @@ export class RoomsComponent implements OnInit, AfterViewInit, AfterViewChecked {
   ngOnInit(): void {
 
     // all the code that can be re-used must be from a service
-    this.roomList = this.roomsService.getRooms();
+    this.roomsService.getRooms()
+    .subscribe(rooms => {
+      this.roomList = rooms;
+    });
 
     // here it is still undefined because headerComponent is not yet ready here
     // if static is true, then we can see the metadata of headerComponent here also
@@ -94,7 +97,7 @@ export class RoomsComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   addRoom() {
     const room: RoomList = {
-      roomNumber: 4,
+      roomNumber: '4',
       roomType: 'Private suite',
       amenities: 'Air Conditioner, Free Wi-fi, Tv, Bathroom, Kitchen',
       price: 15000,
