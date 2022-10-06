@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { RoomList } from '../rooms';
-
+import {environment} from '../../../environments/environment'
+import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
+import { AppConfig } from 'src/app/AppConfig/appconfig.interface';
 
 // providedIn : 'root this means angular adds it automatically in the provider array in the app.module.ts by default
 // whatever is there in that providers array can be used across different components in the app
@@ -45,10 +47,17 @@ export class RoomsService {
       rating: 2.6,
     },
   ];
-  constructor() {
+
+
+  // this is a type of DI where we are injecting an object (value providers)
+  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig) {
     // if this is injected in root, this is a single instance and then this line is printed only once in the console
     // if it is injected into each component individually, multiple instances of this services are created and this line is printed multiple times. (check employee.component)
     console.log('room service is initialized');
+
+    //console.log(environment.apiEndPoint); // this is one way of accessing apiEndPoint from environmant file
+
+    console.log(this.config.apiEndPoint)
   }
 
   getRooms() {
