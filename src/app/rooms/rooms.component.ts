@@ -8,6 +8,7 @@ import {
   SkipSelf,
   ViewChild,
 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { Room, RoomList } from './rooms';
 import { RoomsService } from './services/rooms.service';
@@ -33,6 +34,13 @@ export class RoomsComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   roomList: RoomList[] = [];
   selectedRoom!: RoomList;
+
+  stream = new Observable(observer => {
+    observer.next('user 1'); // next() on an observable emits a new data
+    observer.next('user 2');
+    observer.next('user 3');
+    observer.complete(); //this means all the emits are completed
+  })
 
   // using this we can access any property of headerComponent
   // the component is accessible only after viewInit
@@ -73,6 +81,20 @@ export class RoomsComponent implements OnInit, AfterViewInit, AfterViewChecked {
     // here it is still undefined because headerComponent is not yet ready here
     // if static is true, then we can see the metadata of headerComponent here also
     console.log(this.headerComponent);
+
+
+
+    //this is for learning about observer, here stream is our observable which streams data 
+    this.stream.subscribe(data => {
+      console.log(data)
+    })
+
+    // observable has 3 methods in it next, complete and error
+    this.stream.subscribe({
+      next: (value) => console.log(value),
+      complete: () => console.log('completed'),
+      error: (error) => console.log('error occured', error)
+    })
   }
 
   ngAfterViewInit(): void {
